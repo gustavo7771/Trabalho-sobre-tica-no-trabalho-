@@ -1,1 +1,1 @@
-# Trabalho-sobre-tica-no-trabalho-
+# Trabalho-sobre-ética-no-trabalho-
