@@ -1,140 +1,315 @@
-<!DOCTYPE html>
+[<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ética no Suporte Técnico</title>
+<meta name="description" content="Estudo de caso sobre um técnico de suporte que acessa dados de colegas sem autorização: dilema ético, leis aplicáveis, código de ética e decisão do grupo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
-:root{--azul:#2457d6;--fundo:#f4f6fa;--texto:#202938;--borda:#dce2eb}
+:root{
+  --ink:#16202b;
+  --muted:#5b6775;
+  --rule:#dde2e7;
+  --paper:#fdfdfc;
+  --tint:#eef4f2;
+  --accent:#0e5a4a;
+  --hero:#0f1823;
+  --hero-muted:#9aa8b6;
+  --bright:#3ed1a8;
+  --amber:#f2b84b;
+  --sans:"Bricolage Grotesque","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--fundo);color:var(--texto);line-height:1.6}
-header{background:var(--azul);color:white;padding:28px 18px;text-align:center}
-header h1{margin:0 0 8px;font-size:clamp(1.7rem,4vw,2.5rem)}
-header p{margin:0}
-nav{background:white;border-bottom:1px solid var(--borda);padding:12px;text-align:center;position:sticky;top:0}
-nav a{display:inline-block;margin:5px 9px;color:var(--azul);text-decoration:none;font-weight:bold;font-size:.93rem}
-main{max-width:900px;margin:25px auto;padding:0 16px}
-section{background:white;padding:22px;margin-bottom:18px;border:1px solid var(--borda);border-radius:10px}
-h2{font-size:1.35rem;color:var(--azul);margin:0 0 12px}
-h3{font-size:1.05rem;margin-bottom:6px}
-p{margin:8px 0}
-ul,ol{padding-left:22px}
-li{margin:6px 0}
-a{color:var(--azul)}
-.destaque{background:#edf2ff;padding:14px;border-left:4px solid var(--azul);border-radius:4px}
-footer{text-align:center;padding:22px;background:#202938;color:white;font-size:.9rem}
-footer a{color:white}
-@media(max-width:520px){section{padding:17px}nav a{margin:4px 6px;font-size:.85rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.125rem;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible{outline:3px solid var(--bright);outline-offset:3px;border-radius:2px}
+
+/* ---------- Cabeçalho ---------- */
+.topo{background:var(--hero);color:#fff;background-image:radial-gradient(60rem 30rem at 85% -10%,rgba(62,209,168,.14),transparent 60%)}
+.topo-int{max-width:64rem;margin:0 auto;padding:6rem 1.5rem 5rem}
+.topo h1{font-family:var(--sans);font-weight:800;font-size:clamp(2.6rem,6.2vw,4.6rem);line-height:1;letter-spacing:-.035em;margin:0 0 1.5rem}
+.topo .pergunta{font-size:clamp(1.15rem,2.2vw,1.4rem);line-height:1.5;color:var(--hero-muted);font-style:italic;margin:0;max-width:30rem}
+
+/* ---------- Estrutura ---------- */
+.pagina{max-width:64rem;margin:0 auto;padding:0 1.5rem 5rem;display:grid;grid-template-columns:12rem minmax(0,40rem);gap:4.5rem}
+.indice{padding-top:3rem}
+.indice ul{list-style:none;margin:0;padding:0;position:sticky;top:2rem;font-family:var(--sans);font-size:.92rem;line-height:1.35}
+.indice a{display:block;padding:.5rem 0 .5rem 1rem;border-left:2px solid var(--rule);color:var(--muted);text-decoration:none;transition:color .15s,border-color .15s}
+.indice a:hover{color:var(--ink)}
+.indice a[aria-current="true"]{border-left-color:var(--accent);color:var(--ink);font-weight:700}
+
+main section{padding-top:3.5rem;scroll-margin-top:.5rem}
+main section + section{margin-top:3.5rem;border-top:1px solid var(--rule)}
+main section:first-child{padding-top:3rem}
+
+h2{font-family:var(--sans);font-weight:700;font-size:1.85rem;line-height:1.15;letter-spacing:-.02em;margin:0 0 1.25rem;position:relative}
+h2 .n{color:var(--accent);margin-right:.5rem}
+@media(min-width:861px){h2 .n{position:absolute;right:calc(100% + .6rem);margin:0;font-weight:500;opacity:.75}}
+h3{font-family:var(--sans);font-size:1.05rem;margin:0 0 .25rem}
+p{margin:0 0 1.1rem}
+ul,ol{padding-left:1.4rem;margin:0 0 1rem}
+li{margin:.5rem 0}
+
+.pergunta-central{margin:1.75rem 0;padding:1.25rem 1.5rem;background:var(--tint);border-radius:6px;font-size:1.3rem;line-height:1.45;font-weight:600}
+.pergunta-central span{display:block;font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:.35rem}
+
+/* ---------- Leis ---------- */
+.tabela-leis{width:100%;border-collapse:collapse;font-size:1rem;line-height:1.55;margin:1.5rem 0 .5rem}
+.tabela-leis th{font-family:var(--sans);font-size:.85rem;text-align:left;padding:.6rem .8rem;border-bottom:2px solid var(--ink);color:var(--muted)}
+.tabela-leis td{padding:1rem .8rem;border-bottom:1px solid var(--rule);vertical-align:top}
+.tabela-leis td:first-child{font-family:var(--sans);font-weight:700;width:28%}
+.tabela-leis td:first-child small{display:block;font-weight:500;color:var(--muted);font-size:.82rem;margin-top:.1rem}
+.tag{display:inline-block;font-family:var(--sans);font-size:.78rem;font-weight:700;padding:.12rem .55rem;border-radius:999px;margin-bottom:.35rem}
+.tag.direta{background:var(--accent);color:#fff}
+.tag.condicional{background:#e8ebee;color:#3b4654}
+.tabela-leis td .tag + br{display:none}
+.tabela-leis td .tag{display:table}
+
+/* ---------- Etapas ---------- */
+.etapas{list-style:none;padding:0;counter-reset:etapa;margin-top:1.5rem;position:relative}
+.etapas::before{content:"";position:absolute;left:.95rem;top:1rem;bottom:1rem;width:2px;background:var(--rule)}
+.etapas li{counter-increment:etapa;position:relative;padding-left:3.25rem;margin:0 0 1.5rem}
+.etapas li:last-child{margin-bottom:0}
+.etapas li::before{content:counter(etapa);position:absolute;left:0;top:0;width:2rem;height:2rem;border-radius:50%;background:var(--paper);border:2px solid var(--accent);font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--accent);display:flex;align-items:center;justify-content:center;line-height:1}
+.etapas strong{display:block;font-family:var(--sans);font-size:1.05rem;line-height:2rem}
+
+.decisao-final{background:var(--tint);border-left:4px solid var(--accent);padding:1.5rem 1.75rem;border-radius:0 6px 6px 0;margin:0 0 1.25rem;font-size:1.25rem;line-height:1.55}
+.decisao-final p:last-child{margin:0}
+
+.lista-prevencao{list-style:none;padding:0}
+.lista-prevencao li{position:relative;padding:.7rem 0 .7rem 1.9rem;margin:0;border-bottom:1px solid var(--rule)}
+.lista-prevencao li:first-child{border-top:1px solid var(--rule)}
+.lista-prevencao li::before{content:"";position:absolute;left:.2rem;top:1.25rem;width:.55rem;height:.3rem;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg)}
+
+.referencias{font-size:1rem}
+.referencias li{margin:.4rem 0}
+
+/* ---------- Rodapé ---------- */
+.rodape{background:var(--hero);color:#fff;font-family:var(--sans)}
+.rodape-int{max-width:64rem;margin:0 auto;padding:3.5rem 1.5rem 2rem;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:2.5rem}
+.rodape h2{font-size:1.1rem;color:#fff;margin:0 0 .75rem;letter-spacing:0}
+.rodape p,.rodape li{font-family:var(--serif);color:#d7dee6;font-size:1.02rem;margin:0 0 .3rem;line-height:1.55}
+.rodape ul{list-style:none;padding:0;margin:0}
+.rodape-fim{max-width:64rem;margin:0 auto;padding:1.25rem 1.5rem 2rem;border-top:1px solid #243242;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-size:.88rem;color:var(--hero-muted)}
+.rodape-fim p{margin:0;font-family:var(--sans);color:var(--hero-muted);font-size:.88rem}
+.rodape a{color:var(--bright)}
+
+/* ---------- Responsivo ---------- */
+@media(max-width:960px){
+  .topo-int{padding-top:3.5rem;padding-bottom:3.5rem}
+}
+@media(max-width:860px){
+  .pagina{grid-template-columns:minmax(0,1fr);gap:0}
+  .indice{padding-top:1.25rem;border-bottom:1px solid var(--rule)}
+  .indice ul{position:static;display:flex;flex-wrap:wrap;gap:.1rem 1.25rem;padding-bottom:.75rem}
+  .indice a{border-left:0;border-bottom:2px solid transparent;padding:.35rem 0}
+  .indice a[aria-current="true"]{border-bottom-color:var(--accent)}
+  .rodape-int{grid-template-columns:1fr;gap:1.75rem}
+}
+@media(max-width:640px){
+  body{font-size:1.05rem}
+  h2{font-size:1.55rem}
+  .tabela-leis thead{position:absolute;left:-9999px}
+  .tabela-leis,.tabela-leis tbody,.tabela-leis tr,.tabela-leis td{display:block;width:100%}
+  .tabela-leis tr{padding:1rem 0;border-bottom:1px solid var(--rule)}
+  .tabela-leis td{border:0;padding:.2rem 0}
+  .tabela-leis td:first-child{width:100%}
+}
+
+/* ---------- Impressão ---------- */
+@media print{
+  .indice,.rodape-fim a{display:none}
+  .topo,.rodape{background:#fff;color:#000;background-image:none}
+  .topo h1,.rodape h2{color:#000}
+  .topo .pergunta,.rodape p,.rodape li{color:#333}
+  .pagina{display:block}
+  a{color:#000}
+  body{font-size:11pt}
+}
 </style>
 </head>
 <body>
-<header id="inicio">
-<h1>Ética no Suporte Técnico</h1>
-<p>O que acontece quando um técnico acessa dados de colegas sem autorização?</p>
+
+<header class="topo" id="inicio">
+  <div class="topo-int">
+    <div>
+      <h1>Ética no Suporte Técnico</h1>
+      <p class="pergunta">O que acontece quando um técnico acessa dados de colegas sem autorização?</p>
+    </div>
+  </div>
 </header>
-<nav aria-label="Menu">
-<a href="#caso">O caso</a>
-<a href="#dilema">Dilema ético</a>
-<a href="#leis">Leis</a>
-<a href="#codigo">Código de ética</a>
-<a href="#decisao">Decisão</a>
-<a href="#prevencao">Prevenção</a>
-</nav>
-<main>
-<section id="caso">
-<h2>1. Descrição do caso</h2>
-<p>Um técnico de suporte tem acesso a computadores e sistemas para resolver problemas. Porém, ele usa esse acesso para consultar arquivos e informações pessoais de colegas, sem autorização e sem necessidade profissional.</p>
-<p><strong>Envolvidos:</strong> o técnico, os colegas afetados, a instituição e a equipe responsável pela segurança dos sistemas.</p>
-</section>
 
-<section id="dilema">
-<h2>2. Dilema ético</h2>
-<p>O técnico precisa acessar sistemas para trabalhar, mas deve respeitar a privacidade dos usuários.</p>
-<div class="destaque"><strong>Pergunta principal:</strong> conseguir acessar uma informação significa ter o direito de consultá-la?</div>
-<p>Não. O acesso deve ter autorização e uma finalidade relacionada ao trabalho.</p>
-</section>
+<div class="pagina">
+  <nav class="indice" aria-label="Seções do trabalho">
+    <ul>
+      <li><a href="#caso">O caso</a></li>
+      <li><a href="#dilema">Dilema ético</a></li>
+      <li><a href="#leis">Leis aplicáveis</a></li>
+      <li><a href="#codigo">Código de ética</a></li>
+      <li><a href="#etapas">Como decidir</a></li>
+      <li><a href="#decisao">Decisão do grupo</a></li>
+      <li><a href="#prevencao">Prevenção</a></li>
+      <li><a href="#referencias">Referências</a></li>
+    </ul>
+  </nav>
 
-<section id="leis">
-<h2>3. Leis aplicáveis</h2>
-<h3>LGPD, Lei nº 13.709/2018</h3>
-<p>Protege dados pessoais e estabelece princípios para seu uso correto.</p>
-<p><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Consultar a LGPD</a></p>
-<h3>Marco Civil da Internet, Lei nº 12.965/2014</h3>
-<p>Estabelece direitos e garantias para o uso da internet, incluindo a proteção da privacidade.</p>
-<p><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Consultar a lei</a></p>
-<h3>Lei de Software, Lei nº 9.609/1998</h3>
-<p>Protege programas de computador. É relevante se também houver uso ou cópia ilícita de software, mas não se aplica automaticamente ao simples acesso a dados.</p>
-<p><a href="https://www.planalto.gov.br/ccivil_03/leis/l9609.htm" target="_blank" rel="noopener">Consultar a lei</a></p>
-<h3>Lei Carolina Dieckmann, Lei nº 12.737/2012</h3>
-<p>Trata de invasão de dispositivo informático em condições definidas no Código Penal. Nem todo acesso indevido configura automaticamente esse crime.</p>
-<p><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm" target="_blank" rel="noopener">Consultar a lei</a></p>
-<h3>Direitos autorais, Lei nº 9.610/1998</h3>
-<p>Protege obras como textos, imagens e músicas. É relevante caso haja cópia ou divulgação indevida de obras protegidas.</p>
-<p><a href="https://www.planalto.gov.br/ccivil_03/leis/l9610.htm" target="_blank" rel="noopener">Consultar a lei</a></p>
-</section>
+  <main>
+    <section id="caso">
+      <h2><span class="n">1</span>Descrição do caso</h2>
+      <p>Um técnico de suporte tem acesso a computadores e sistemas para resolver problemas. Porém, ele usa esse acesso para consultar arquivos e informações pessoais de colegas, sem autorização e sem necessidade profissional.</p>
+      <p>Estão envolvidos o técnico, os colegas afetados, a instituição e a equipe responsável pela segurança dos sistemas.</p>
+    </section>
 
-<section id="codigo">
-<h2>4. Código de ética</h2>
-<p>O código de ética da ACM orienta profissionais de computação a acessar recursos somente quando houver autorização ou justificativa excepcional. Também destaca a importância da segurança dos sistemas.</p>
-<p>O técnico deve respeitar a privacidade, manter informações confidenciais e usar seus privilégios apenas para tarefas autorizadas.</p>
-<p><a href="https://www.acm.org/binaries/content/assets/about/acm-code-of-ethics-booklet.pdf" target="_blank" rel="noopener">Consultar o código da ACM</a> | <a href="https://www.sbc.org.br/" target="_blank" rel="noopener">Sociedade Brasileira de Computação (SBC)</a></p>
-</section>
+    <section id="dilema">
+      <h2><span class="n">2</span>Dilema ético</h2>
+      <p>O técnico precisa acessar sistemas para trabalhar, mas deve respeitar a privacidade dos usuários.</p>
+      <div class="pergunta-central">
+        <span>Pergunta principal</span>
+        Conseguir acessar uma informação significa ter o direito de consultá-la?
+      </div>
+      <p>Não. O acesso deve ter autorização e uma finalidade relacionada ao trabalho.</p>
+    </section>
 
-<section id="etapas">
-<h2>5. Como tomar a decisão</h2>
-<ol>
-<li><strong>Identificar:</strong> houve acesso a informações privadas sem autorização.</li>
-<li><strong>Listar alternativas:</strong> ignorar, apenas advertir ou investigar formalmente.</li>
-<li><strong>Avaliar:</strong> ignorar pode permitir novas violações; investigar ajuda a entender os fatos.</li>
-<li><strong>Decidir:</strong> investigar, proteger os dados e aplicar medidas proporcionais às evidências.</li>
-</ol>
-</section>
+    <section id="leis">
+      <h2><span class="n">3</span>Leis aplicáveis</h2>
+      <p>Nem todas as leis abaixo se aplicam da mesma forma. A última coluna indica quando cada uma é relevante para o caso.</p>
+      <table class="tabela-leis">
+        <thead>
+          <tr><th scope="col">Lei</th><th scope="col">O que estabelece</th><th scope="col">Relação com o caso</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">LGPD</a><small>Lei nº 13.709/2018</small></td>
+            <td>Protege dados pessoais e estabelece princípios para seu uso correto.</td>
+            <td><span class="tag direta">Direta</span>Os dados pessoais dos colegas foram consultados sem finalidade profissional.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Marco Civil da Internet</a><small>Lei nº 12.965/2014</small></td>
+            <td>Estabelece direitos e garantias para o uso da internet, incluindo a proteção da privacidade.</td>
+            <td><span class="tag direta">Direta</span>Trata da proteção da privacidade dos usuários.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm" target="_blank" rel="noopener">Lei Carolina Dieckmann</a><small>Lei nº 12.737/2012</small></td>
+            <td>Trata de invasão de dispositivo informático em condições definidas no Código Penal.</td>
+            <td><span class="tag condicional">Depende do caso</span>Nem todo acesso indevido configura automaticamente esse crime.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.planalto.gov.br/ccivil_03/leis/l9609.htm" target="_blank" rel="noopener">Lei de Software</a><small>Lei nº 9.609/1998</small></td>
+            <td>Protege programas de computador.</td>
+            <td><span class="tag condicional">Condicional</span>Só é relevante se também houver uso ou cópia ilícita de software; não se aplica automaticamente ao simples acesso a dados.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.planalto.gov.br/ccivil_03/leis/l9610.htm" target="_blank" rel="noopener">Direitos autorais</a><small>Lei nº 9.610/1998</small></td>
+            <td>Protege obras como textos, imagens e músicas.</td>
+            <td><span class="tag condicional">Condicional</span>Só é relevante se houver cópia ou divulgação indevida de obras protegidas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-<section id="decisao">
-<h2>6. Decisão final do grupo</h2>
-<p>O grupo considera errado acessar dados de colegas sem autorização e sem motivo profissional. A instituição deve investigar o caso, proteger as pessoas afetadas e tomar as medidas adequadas de acordo com as evidências.</p>
-<p>A decisão se baseia no respeito à privacidade, na responsabilidade profissional e na aplicação justa das regras.</p>
-</section>
+    <section id="codigo">
+      <h2><span class="n">4</span>Código de ética</h2>
+      <p>O código de ética da ACM orienta profissionais de computação a acessar recursos somente quando houver autorização ou justificativa excepcional. Também destaca a importância da segurança dos sistemas.</p>
+      <p>O técnico deve respeitar a privacidade, manter informações confidenciais e usar seus privilégios apenas para tarefas autorizadas.</p>
+      <p><a href="https://www.acm.org/binaries/content/assets/about/acm-code-of-ethics-booklet.pdf" target="_blank" rel="noopener">Código de Ética da ACM</a> e <a href="https://www.sbc.org.br/" target="_blank" rel="noopener">Sociedade Brasileira de Computação (SBC)</a></p>
+    </section>
 
-<section id="prevencao">
-<h2>7. Como evitar que aconteça novamente</h2>
-<ul>
-<li>Dar a cada funcionário apenas o acesso necessário para seu trabalho.</li>
-<li>Registrar e revisar acessos a informações sensíveis.</li>
-<li>Orientar a equipe sobre privacidade e LGPD.</li>
-<li>Criar regras claras para uso dos sistemas.</li>
-<li>Oferecer um canal seguro para denunciar problemas.</li>
-</ul>
-</section>
+    <section id="etapas">
+      <h2><span class="n">5</span>Como tomar a decisão</h2>
+      <ol class="etapas">
+        <li><strong>Identificar</strong>Houve acesso a informações privadas sem autorização.</li>
+        <li><strong>Listar alternativas</strong>Ignorar, apenas advertir ou investigar formalmente.</li>
+        <li><strong>Avaliar</strong>Ignorar pode permitir novas violações; investigar ajuda a entender os fatos.</li>
+        <li><strong>Decidir</strong>Investigar, proteger os dados e aplicar medidas proporcionais às evidências.</li>
+      </ol>
+    </section>
 
-<section id="referencias">
-<h2>Referências</h2>
-<ul>
-<li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">LGPD</a></li>
-<li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Marco Civil da Internet</a></li>
-<li><a href="https://www.planalto.gov.br/ccivil_03/leis/l9609.htm" target="_blank" rel="noopener">Lei de Software</a></li>
-<li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm" target="_blank" rel="noopener">Lei Carolina Dieckmann</a></li>
-<li><a href="https://www.planalto.gov.br/ccivil_03/leis/l9610.htm" target="_blank" rel="noopener">Lei de Direitos Autorais</a></li>
-<li><a href="https://www.acm.org/binaries/content/assets/about/acm-code-of-ethics-booklet.pdf" target="_blank" rel="noopener">Código de Ética da ACM</a></li>
-<li><a href="https://www.sbc.org.br/" target="_blank" rel="noopener">Sociedade Brasileira de Computação</a></li>
-</ul>
-</section>
+    <section id="decisao">
+      <h2><span class="n">6</span>Decisão final do grupo</h2>
+      <div class="decisao-final">
+        <p>O grupo considera errado acessar dados de colegas sem autorização e sem motivo profissional. A instituição deve investigar o caso, proteger as pessoas afetadas e tomar as medidas adequadas de acordo com as evidências.</p>
+      </div>
+      <p>A decisão se baseia no respeito à privacidade, na responsabilidade profissional e na aplicação justa das regras.</p>
+    </section>
 
-<section id="grupo">
-<h2>Integrantes do grupo</h2>
-<p><strong>Grupo:</strong> Grupo 9</p>
-<p><strong>Turma:</strong> 2° Tec.Informaática</p>
-<p><strong>Integrantes:</strong>
-<li> Gustavo Favero Bonetti</li>
-<li> Kaue do Prado Catapan</li>
-<li> Pietro Eduardo Gandini Bau</li>
-</p>
-</section>
-</main>
-<footer>
-<p>Trabalho escolar de ética e tecnologia.</p>
-<p><a href="#inicio">Voltar ao início ↑</a></p>
+    <section id="prevencao">
+      <h2><span class="n">7</span>Como evitar que aconteça novamente</h2>
+      <ul class="lista-prevencao">
+        <li>Dar a cada funcionário apenas o acesso necessário para seu trabalho.</li>
+        <li>Registrar e revisar acessos a informações sensíveis.</li>
+        <li>Orientar a equipe sobre privacidade e LGPD.</li>
+        <li>Criar regras claras para uso dos sistemas.</li>
+        <li>Oferecer um canal seguro para denunciar problemas.</li>
+      </ul>
+    </section>
+
+    <section id="referencias">
+      <h2>Referências</h2>
+      <ul class="referencias">
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018 (LGPD)</a></li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Lei nº 12.965/2014 (Marco Civil da Internet)</a></li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm" target="_blank" rel="noopener">Lei nº 12.737/2012 (Lei Carolina Dieckmann)</a></li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l9609.htm" target="_blank" rel="noopener">Lei nº 9.609/1998 (Lei de Software)</a></li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l9610.htm" target="_blank" rel="noopener">Lei nº 9.610/1998 (Direitos Autorais)</a></li>
+        <li><a href="https://www.acm.org/binaries/content/assets/about/acm-code-of-ethics-booklet.pdf" target="_blank" rel="noopener">Código de Ética da ACM</a></li>
+        <li><a href="https://www.sbc.org.br/" target="_blank" rel="noopener">Sociedade Brasileira de Computação</a></li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<footer class="rodape" id="grupo">
+  <div class="rodape-int">
+    <div>
+      <h2>Grupo</h2>
+      <p>Grupo 9</p>
+    </div>
+    <div>
+      <h2>Turma</h2>
+      <p>2º ano, Técnico em Informática</p>
+    </div>
+    <div>
+      <h2>Integrantes</h2>
+      <ul>
+        <li>Gustavo Favero Bonetti</li>
+        <li>Kaue do Prado Catapan</li>
+        <li>Pietro Eduardo Gandini Bau</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rodape-fim">
+    <p>Trabalho escolar de ética e tecnologia.</p>
+    <p><a href="#inicio">Voltar ao início</a></p>
+  </div>
 </footer>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.indice a');
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var secoes = document.querySelectorAll('main section');
+  if(!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){ a.removeAttribute('aria-current'); });
+        var a = map[e.target.id];
+        if(a) a.setAttribute('aria-current','true');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secoes.forEach(function(s){ io.observe(s); });
+})();
+</script>
 </body>
 </html>
+]
